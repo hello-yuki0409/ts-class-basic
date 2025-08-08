@@ -13,14 +13,20 @@ import {
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [isloading, setIsLoading] = useState(true);
   useEffect(() => {
     const getAllTodos = async () => {
       const todosData = await GetAllTodos();
       setTodos(todosData);
+      setIsLoading(false);
     };
 
     getAllTodos();
   }, []);
+
+  if (isloading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
